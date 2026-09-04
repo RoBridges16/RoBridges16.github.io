@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rohan Bridges - Mathematics &amp; Quantitative Work</title>
+<meta name="description" content="Rohan Bridges - Mathematics undergraduate at Durham University. Projects in graph theory, computational geometry, risk assessment and data analytics.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================
+   Rohan Bridges - portfolio
+   Design: "working notebook of a quant" -
+   graph-paper ground, ink-navy type, a flow-green
+   accent for structure, a cut-red used sparingly.
+   ============================================ */
+:root {
+  --paper: #f6f7f5;
+  --card: #ffffff;
+  --grid-line: rgba(22, 35, 63, 0.055);
+  --hairline: #dde2de;
+  --ink: #16233f;
+  --ink-soft: #4b5568;
+  --ink-faint: #6b7486; /* darkened from #8993a6 for AA contrast on white */
+  --flow: #2e7d6b;
+  --flow-soft: rgba(46, 125, 107, 0.1);
+  --cut: #c1443d;
+  --font-serif: "Newsreader", Georgia, serif;
+  --font-sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", Menlo, monospace;
+  --max: 760px;
+}
+* { box-sizing: border-box; }
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+body {
+  margin: 0;
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 28px 28px;
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a {
+  color: inherit;
+}
+img { max-width: 100%; display: block; }
+/* subtle paper grain so the grid doesn't feel too crisp/digital */
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.35;
+  background-image: radial-gradient(circle at 1px 1px, rgba(22,35,63,0.045) 1px, transparent 0);
+  background-size: 3px 3px;
+}
+/* ---------- topbar ---------- */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 28px;
+  background: rgba(246, 247, 245, 0.82);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--hairline);
+}
+.wordmark {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  text-decoration: none;
+  border: 1px solid var(--ink);
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  font-size: 13px;
+}
+.topbar nav {
+  display: flex;
+  gap: 28px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+.topbar nav a {
+  text-decoration: none;
+  color: var(--ink-soft);
+  position: relative;
+}
+.topbar nav a:hover,
+.topbar nav a:focus-visible {
+  color: var(--flow);
+}
+/* ---------- layout helpers ---------- */
+main { position: relative; z-index: 2; }
+.hero,
+.section,
+.footer {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 72px 24px;
+}
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
+  color: var(--flow);
+  margin: 0 0 14px;
+}
+h1, h2, h3 {
+  font-family: var(--font-serif);
+  color: var(--ink);
+  margin: 0 0 0.4em;
+  letter-spacing: -0.01em;
+}
+h2 {
+  font-size: 30px;
+  font-weight: 500;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--hairline);
+  margin-bottom: 28px;
+}
+.section-lede {
+  color: var(--ink-soft);
+  margin-top: -18px;
+  margin-bottom: 28px;
+  max-width: 54ch;
+}
+/* ---------- hero ---------- */
+.hero { padding-top: 56px; }
+.hero h1 {
+  font-size: clamp(40px, 7vw, 60px);
+  font-weight: 500;
+  line-height: 1.05;
+}
+.hero-role {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--ink-soft);
+  margin: 0 0 22px;
+}
+.hero-role .dot { color: var(--ink-faint); }
+.hero-lede {
+  max-width: 58ch;
+  font-size: 17px;
+  color: var(--ink-soft);
+  margin: 0 0 32px;
+}
+.hero-lede code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: var(--flow-soft);
+  color: var(--flow);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+}
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 52px;
+}
+.btn {
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  text-decoration: none;
+  padding: 11px 20px;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  display: inline-block;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.btn-primary {
+  background: var(--ink);
+  color: var(--paper);
+}
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background: var(--flow);
+}
+.btn-ghost {
+  border-color: var(--hairline);
+  color: var(--ink);
+}
+.btn-ghost:hover,
+.btn-ghost:focus-visible {
+  border-color: var(--flow);
+  color: var(--flow);
+}
+.btn:focus-visible,
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--flow);
+  outline-offset: 2px;
+}
+/* ---------- canvas ---------- */
+.canvas-wrap {
+  border: 1px solid var(--hairline);
+  background: var(--card);
+  border-radius: 4px;
+  padding: 10px;
+}
+#rayCanvas {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  display: block;
+  border-radius: 2px;
+  cursor: crosshair;
+  background: var(--card);
+  touch-action: none;
+}
+.canvas-caption {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--ink-faint);
+  margin: 10px 4px 4px;
+}
+.canvas-caption code {
+  background: var(--flow-soft);
+  color: var(--flow);
+  padding: 0.05em 0.3em;
+  border-radius: 3px;
+}
+.link-btn {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  background: none;
+  border: none;
+  color: var(--cut);
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 6px;
+}
+.link-btn:hover { color: var(--ink); }
+/* ---------- cards ---------- */
+.card {
+  background: var(--card);
+  border: 1px solid var(--hairline);
+  border-radius: 4px;
+  padding: 28px;
+  margin-bottom: 22px;
+}
+.card-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px 16px;
+  margin-bottom: 12px;
+}
+.card-head h3 {
+  font-size: 20px;
+  font-weight: 500;
+  max-width: 40ch;
+}
+.tag-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--flow);
+  background: var(--flow-soft);
+  padding: 3px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.card p {
+  color: var(--ink-soft);
+  margin: 0 0 16px;
+  max-width: 68ch;
+}
+.card p:last-of-type { margin-bottom: 0; }
+.card code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--hairline);
+  padding: 0.05em 0.35em;
+  border-radius: 3px;
+}
+.card-media {
+  margin: 18px 0;
+  border: 1px solid var(--hairline);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.card-links { margin-top: 16px; }
+.link-arrow {
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  text-decoration: none;
+  color: var(--ink);
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 1px;
+}
+.link-arrow:hover,
+.link-arrow:focus-visible {
+  color: var(--flow);
+  border-color: var(--flow);
+}
+.card-split {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 24px;
+  align-items: center;
+}
+.card-media-side { margin: 0; }
+@media (max-width: 620px) {
+  .card-split {
+    grid-template-columns: 1fr;
+  }
+}
+/* ---------- education ---------- */
+.edu-block {
+  margin-bottom: 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px dashed var(--hairline);
+}
+.edu-block:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.edu-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px 16px;
+}
+.edu-head h3 {
+  font-size: 19px;
+  font-weight: 500;
+}
+.edu-date {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--ink-faint);
+  white-space: nowrap;
+}
+.edu-sub {
+  color: var(--ink-soft);
+  margin: 4px 0 16px;
+}
+.marks-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+}
+.marks-table td {
+  padding: 9px 6px;
+  border-top: 1px solid var(--hairline);
+  color: var(--ink-soft);
+}
+.marks-table tr:first-child td {
+  border-top: none;
+}
+.marks-table td.num {
+  color: var(--ink);
+  text-align: right;
+  padding-right: 24px;
+  width: 60px;
+}
+/* ---------- skills ---------- */
+.skill-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.skill-list li {
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  border: 1px solid var(--hairline);
+  background: var(--card);
+  padding: 8px 14px;
+  border-radius: 3px;
+  color: var(--ink);
+}
+/* ---------- footer ---------- */
+.footer {
+  padding-bottom: 90px;
+}
+.footer-lede {
+  color: var(--ink-soft);
+  max-width: 52ch;
+  margin-top: -18px;
+}
+.footer-links {
+  display: flex;
+  gap: 24px;
+  margin: 24px 0 10px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+}
+.footer-links a {
+  text-decoration: none;
+  border-bottom: 1px solid var(--hairline);
+  padding-bottom: 2px;
+}
+.footer-links a:hover,
+.footer-links a:focus-visible {
+  border-color: var(--flow);
+  color: var(--flow);
+}
+.footer-meta {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--ink-faint);
+}
+/* ---------- reveal-on-scroll ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* ---------- responsive ---------- */
+@media (max-width: 560px) {
+  .topbar { padding: 16px 18px; }
+  .topbar nav { gap: 16px; font-size: 12px; }
+  .hero, .section, .footer { padding: 52px 18px; }
+  .hero-actions { flex-wrap: wrap; }
+  .card { padding: 20px; }
+}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<header class="topbar">
+  <a href="#top" class="wordmark">RB</a>
+  <nav>
+    <a href="#projects">Projects</a>
+    <a href="#simulations">Simulations</a>
+    <a href="#education">Education</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+<main id="top">
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <p class="eyebrow"># 00 - index</p>
+    <h1>Rohan Bridges</h1>
+    <p class="hero-role">BSc Mathematics, Durham University <span class="dot">·</span> Class of 2028</p>
+    <p class="hero-lede">
+      First-year mathematics undergraduate working toward quantitative roles in finance and data.
+      Recently proved the Max-Flow&nbsp;Min-Cut theorem for a self-directed report, and wrote the
+      geometry engine below from scratch - line intersections, reflection vectors, and multi-bounce
+      ray paths, no libraries beyond matplotlib.
+    </p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn btn-primary">See the work</a>
+      <a href="mailto:rbridges16@icloud.com" class="btn btn-ghost">Email me</a>
+    </div>
+    <div class="canvas-wrap">
+      <canvas id="rayCanvas" width="640" height="640" aria-label="Interactive ray-tracing demo - press and drag inside the box to aim and fire a ray"></canvas>
+      <p class="canvas-caption">
+        Press to set a start point, drag to aim, release to fire. The ray reflects off
+        every mirror it meets, and if it exits the box it re-enters from the opposite
+        side on the same trajectory - the <code>reflected_ray()</code> and boundary-wrap
+        logic from the project below, running live.
+        <button id="rayReset" class="link-btn">clear</button>
+      </p>
+    </div>
+  </section>
+  <!-- ============ PROJECTS ============ -->
+  <section id="projects" class="section">
+    <p class="eyebrow"># 01 - academic &amp; technical projects</p>
+    <h2>Projects</h2>
+    <article class="card">
+      <div class="card-head">
+        <h3>Optimising Network Flow: From Graph Theory to Real-World Systems</h3>
+        <span class="tag-row">
+          <span class="tag">LaTeX</span>
+          <span class="tag">Graph Theory</span>
+          <span class="tag">Proof-writing</span>
+        </span>
+      </div>
+      <p>
+        A self-directed report on flow networks, written and typeset in LaTeX. Builds up capacitated
+        networks and cuts from first principles, then proves the Max-Flow Min-Cut theorem in full -
+        by induction, following the trichotomy used in Ford &amp; Fulkerson's original 1956 paper.
+        The proof is then put to work on two concrete problems: lane-closure planning for
+        London–Durham motorway traffic, and bandwidth allocation across a data network, in each case
+        using the minimum cut to bound achievable throughput.
+      </p>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <h3>Computational Geometry &amp; Ray-Tracing</h3>
+        <span class="tag-row">
+          <span class="tag">Python</span>
+          <span class="tag">Matplotlib</span>
+          <span class="tag">Computational Geometry</span>
+        </span>
+      </div>
+      <p>
+        A geometry engine built from scratch across thirteen staged tasks: line and segment
+        intersection from first-principles linear algebra, ray casting against a bounded window,
+        reflection vectors off arbitrary mirror segments, nearest-intersection search across a
+        scene, and periodic boundary wrapping so a ray that exits one edge re-enters the opposite
+        one. The output above is the same <code>multi_bounce()</code> routine - this static render
+        traces three particles at once through five mirrors.
+      </p>
+      <div class="card-media">
+        <img src="raytrace-sample.png" alt="Static render of the multi-bounce ray-tracer output" loading="lazy">
+      </div>
+      <div class="card-links">
+        <a href="raytracer.py" class="link-arrow">View the code →</a>
+      </div>
+    </article>
+  </section>
+  <!-- ============ SIMULATIONS ============ -->
+  <section id="simulations" class="section">
+    <p class="eyebrow"># 02 - job simulations</p>
+    <h2>Job Simulations</h2>
+    <p class="section-lede">
+      Forage virtual work experience programmes - practical, task-based exposure to how these
+      functions actually work day-to-day.
+    </p>
+    <article class="card">
+      <div class="card-head">
+        <h3>Deloitte - Data Analytics</h3>
+        <span class="tag-row">
+          <span class="tag">Tableau</span>
+          <span class="tag">Excel</span>
+        </span>
+      </div>
+      <p>
+        Built an interactive Tableau dashboard from raw factory telemetry: a calculated
+        <em>"down time"</em> measure, two cross-filtered bar charts, and a filter action so
+        selecting a factory isolates down time by device type - the seiko factory and the
+        LaserWelder device turned out to be the biggest contributors. Separately, cleaned employee
+        compensation data in Excel and applied a defined 3-tier rule to flag pay-equity risk by
+        factory and job role.
+      </p>
+      <div class="card-media">
+        <img src="tableau-dashboard.png" alt="Tableau dashboard showing down time per factory and per device type" loading="lazy">
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <h3>Goldman Sachs - Risk Management</h3>
+        <span class="tag-row">
+          <span class="tag">Risk Assessment</span>
+          <span class="tag">Excel</span>
+        </span>
+      </div>
+      <p>
+        Worked through market, credit, liquidity, operational and model risk - categorising a set
+        of real-world scenarios against each - then applied that framework to two tasks: assessing
+        the risk profile of prospective clients, and evaluating the viability of a real estate
+        investment using an Excel-based risk calculator to support the conclusion.
+      </p>
+    </article>
+  </section>
+  <!-- ============ EDUCATION ============ -->
+  <section id="education" class="section">
+    <p class="eyebrow"># 03 - education</p>
+    <h2>Education</h2>
+    <div class="edu-block">
+      <div class="edu-head">
+        <h3>BSc Mathematics - Durham University</h3>
+        <span class="edu-date">2025 – 2028 (expected)</span>
+      </div>
+      <p class="edu-sub">First-year results</p>
+      <table class="marks-table">
+        <tbody>
+          <tr><td>Calculus</td><td class="num">91%</td><td>Statistics</td><td class="num">86%</td></tr>
+          <tr><td>Linear Algebra</td><td class="num">88%</td><td>Probability</td><td class="num">84%</td></tr>
+          <tr><td>Discrete Mathematics</td><td class="num">85%</td><td>Dynamics &amp; Relativity</td><td class="num">78%</td></tr>
+          <tr><td>Analysis</td><td class="num">78%</td><td>Programming</td><td class="num">75%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="edu-block">
+      <div class="edu-head">
+        <h3>A Levels - Langley Park School for Boys</h3>
+        <span class="edu-date">2023 – 2025</span>
+      </div>
+      <p class="edu-sub">Further Mathematics A* &nbsp;·&nbsp; Mathematics A* &nbsp;·&nbsp; Economics A* &nbsp;·&nbsp; Physics A*</p>
+    </div>
+  </section>
+  <!-- ============ SKILLS ============ -->
+  <section id="skills" class="section">
+    <p class="eyebrow"># 04 - skills</p>
+    <h2>Skills</h2>
+    <ul class="skill-list">
+      <li>Python</li>
+      <li>LaTeX</li>
+      <li>Excel</li>
+      <li>Tableau</li>
+      <li>Mathematical proof-writing</li>
+      <li>Graph theory &amp; network optimisation</li>
+      <li>Risk-assessment frameworks</li>
+    </ul>
+  </section>
+  <!-- ============ CONTACT ============ -->
+  <footer id="contact" class="footer">
+    <p class="eyebrow"># 05 - contact</p>
+    <h2>Get in touch</h2>
+    <p class="footer-lede">
+      Currently applying for Summer Analyst 2027 positions across investment banking, risk,
+      sales &amp; trading and data analytics.
+    </p>
+    <div class="footer-links">
+      <a href="mailto:rbridges16@icloud.com">rbridges16@icloud.com</a>
+      <a href="https://github.com/RoBridges16" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <p class="footer-meta">Durham, UK</p>
+  </footer>
+</main>
+<script>
+/* ==========================================================
+   Interactive ray-tracer - a small re-implementation of the
+   line/segment/ray geometry from projects/raytracer.py so the
+   hero demo runs live in the browser. Press and drag to aim.
+   ========================================================== */
+(function () {
+  const canvas = document.getElementById("rayCanvas");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  // logical coordinate window, matches the Python project's `window`
+  const WIN = [[0, 10], [0, 10]];
+  // mirror segments - the same scene as the static render below
+  const SEGS = [
+    [[7, 1], [9.5, 2]],
+    [[4, 6], [2, 9]],
+    [[4, 5], [2, 1]],
+    [[0.5, 5], [1, 8]],
+    [[8, 4], [5, 7]],
+  ];
+  const PAD = 44;
+  const COLORS = ["#16233f", "#2e7d6b", "#c1443d", "#5b6472", "#8993a6"];
+  const MAX_SEGMENTS = 14; // total bounces + wraps budget for one fired ray
+  const MAX_WRAPS = 6;
+  let size = 640;
+  let firedPaths = [];
+  let drag = null;
+  // ---------- geometry (ported from raytracer.py) ----------
+  function lineFromSegment(seg) {
+    const ycof = seg[1][0] - seg[0][0];
+    const xcof = seg[0][1] - seg[1][1];
+    const cons = seg[0][0] * seg[1][1] - seg[0][1] * seg[1][0];
+    return [xcof, ycof, cons];
+  }
+  function linesIntersect(l1, l2) {
+    const det = l1[0] * l2[1] - l1[1] * l2[0];
+    if (Math.abs(det) < 1e-10) return null;
+    const xval = (l1[2] * l2[1] - l2[2] * l1[1]) / (l2[0] * l1[1] - l1[0] * l2[1]);
+    const yval = (l1[2] * l2[0] - l2[2] * l1[0]) / (l1[0] * l2[1] - l2[0] * l1[1]);
+    return [xval, yval];
+  }
+  function pointOnSegment(pt, seg) {
+    if (!pt || !seg || !seg[0] || !seg[1]) return false;
+    const [x, y] = pt, [x1, y1] = seg[0], [x2, y2] = seg[1];
+    return (x - x2) * (x - x1) + (y - y2) * (y - y1) <= 1e-7;
+  }
+  function lineFromRay(ray) {
+    if (!ray || !ray[0]) return null;
+    const [origin, theta] = ray;
+    const [x, y] = origin;
+    if (Math.abs(Math.cos(theta)) < 1e-10) return [1, 0, -x];
+    const m = Math.tan(theta);
+    return [-m, 1, x * m - y];
+  }
+  function pointOnRay(pt, ray) {
+    if (!pt || !ray || !ray[0]) return false;
+    const [origin, theta] = ray;
+    const dx = pt[0] - origin[0], dy = pt[1] - origin[1];
+    return dx * Math.cos(theta) + dy * Math.sin(theta) >= -1e-7;
+  }
+  function raySegmentIntersect(ray, seg) {
+    if (!ray || !seg) return null;
+    const l1 = lineFromRay(ray);
+    if (!l1) return null;
+    const pt = linesIntersect(l1, lineFromSegment(seg));
+    if (!pt) return null;
+    return pointOnSegment(pt, seg) && pointOnRay(pt, ray) ? pt : null;
+  }
+  function reflectedRay(ray, seg) {
+    const ptrs = raySegmentIntersect(ray, seg);
+    if (!ptrs) return null;
+    const theta = ray[1];
+    const segdx = seg[1][0] - seg[0][0], segdy = seg[1][1] - seg[0][1];
+    const dp1 = Math.cos(theta) * segdx + Math.sin(theta) * segdy;
+    const dp2 = Math.cos(theta) * segdy - Math.sin(theta) * segdx;
+    const c1 = [dp1 * segdx, dp1 * segdy];
+    const c2 = [dp2 * segdy, -dp2 * segdx];
+    const outv = [c1[0] - c2[0], c1[1] - c2[1]];
+    return [ptrs, Math.atan2(outv[1], outv[0])];
+  }
+  function windowSegs() {
+    const [x1, x2] = WIN[0], [y1, y2] = WIN[1];
+    return [
+      [[x1, y1], [x1, y2]],
+      [[x2, y1], [x2, y2]],
+      [[x1, y1], [x2, y1]],
+      [[x1, y2], [x2, y2]],
+    ];
+  }
+  // Wrap a point that has just exited one edge of the window onto the
+  // opposite edge, same trajectory - the boundary-wrap idea from
+  // multi_bounce_wrap() in the Python project.
+  function wrapPoint(pt) {
+    if (!pt) return pt;
+    const [x1, x2] = WIN[0], [y1, y2] = WIN[1];
+    const eps = 1e-6;
+    let [x, y] = pt;
+    if (Math.abs(x - x1) < eps) x = x2;
+    else if (Math.abs(x - x2) < eps) x = x1;
+    if (Math.abs(y - y1) < eps) y = y2;
+    else if (Math.abs(y - y2) < eps) y = y1;
+    return [x, y];
+  }
+  // Traces a ray through its bounces and, whenever it exits the window,
+  // continues from the opposite edge on the same trajectory. Returns a
+  // flat list of [pointA, pointB] segments - consecutive segments share
+  // an endpoint EXCEPT across a wrap, where there's a jump.
+  function traceRay(origin, theta, maxSegments) {
+    const segments = [];
+    let curPt = origin;
+    let curTheta = theta;
+    let budget = maxSegments;
+    let wraps = 0;
+    while (budget > 0) {
+      const ray = [curPt, curTheta];
+      let nearestPt = null, nearestSeg = null, minDist = null;
+      for (const seg of SEGS) {
+        const pt = raySegmentIntersect(ray, seg);
+        if (!pt) continue;
+        const d2 = (pt[0] - curPt[0]) ** 2 + (pt[1] - curPt[1]) ** 2;
+        if (d2 > 1e-7 && (minDist === null || d2 < minDist)) {
+          minDist = d2; nearestPt = pt; nearestSeg = seg;
+        }
+      }
+      if (nearestPt) {
+        segments.push([curPt, nearestPt]);
+        budget--;
+        const reflected = reflectedRay(ray, nearestSeg);
+        if (!reflected) break;
+        [curPt, curTheta] = reflected;
+        continue;
+      }
+      // no mirror ahead - the ray runs on to the edge of the window
+      let exitPt = null, exitDist = null;
+      for (const ws of windowSegs()) {
+        const pt = raySegmentIntersect(ray, ws);
+        if (!pt) continue;
+        const d2 = (pt[0] - curPt[0]) ** 2 + (pt[1] - curPt[1]) ** 2;
+        if (d2 > 1e-7 && (exitDist === null || d2 < exitDist)) {
+          exitDist = d2; exitPt = pt;
+        }
+      }
+      if (!exitPt) break;
+      segments.push([curPt, exitPt]);
+      budget--;
+      if (wraps >= MAX_WRAPS) break;
+      curPt = wrapPoint(exitPt);
+      wraps++;
+    }
+    return segments;
+  }
+  // ---------- coordinate mapping ----------
+  function toCanvas(x, y) {
+    const d = size - 2 * PAD;
+    return [PAD + (x / 10) * d, PAD + (1 - y / 10) * d];
+  }
+  function toLogical(px, py) {
+    const d = size - 2 * PAD;
+    return [((px - PAD) / d) * 10, 10 - ((py - PAD) / d) * 10];
+  }
+  function clamp(v, lo, hi) {
+    return Math.min(Math.max(v, lo), hi);
+  }
+  function pointerPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    return [e.clientX - rect.left, e.clientY - rect.top];
+  }
+  // ---------- drawing ----------
+  function drawBase() {
+    ctx.clearRect(0, 0, size, size);
+    // window border
+    const [wx1, wy1] = toCanvas(WIN[0][0], WIN[1][0]);
+    const [wx2, wy2] = toCanvas(WIN[0][1], WIN[1][1]);
+    ctx.strokeStyle = "#dde2de";
+    ctx.lineWidth = 1;
+    ctx.strokeRect(wx1, wy2, wx2 - wx1, wy1 - wy2);
+    // mirrors
+    ctx.strokeStyle = "#2e7d6b";
+    ctx.lineWidth = 2.5;
+    ctx.lineCap = "round";
+    for (const seg of SEGS) {
+      const [ax, ay] = toCanvas(seg[0][0], seg[0][1]);
+      const [bx, by] = toCanvas(seg[1][0], seg[1][1]);
+      ctx.beginPath();
+      ctx.moveTo(ax, ay);
+      ctx.lineTo(bx, by);
+      ctx.stroke();
+    }
+  }
+  function drawWrapMark(pt, color) {
+    const [px, py] = toCanvas(pt[0], pt[1]);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.arc(px, py, 4, 0, Math.PI * 2);
+    ctx.stroke();
+  }
+  function drawSegments(segments, color, upToIndex, frac) {
+    if (segments.length === 0) return;
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2;
+    ctx.lineCap = "round";
+    const n = upToIndex === undefined ? segments.length : upToIndex;
+    for (let i = 0; i < n; i++) {
+      const [a, b] = segments[i];
+      const [ax, ay] = toCanvas(a[0], a[1]);
+      const [bx, by] = toCanvas(b[0], b[1]);
+      ctx.beginPath();
+      ctx.moveTo(ax, ay);
+      ctx.lineTo(bx, by);
+      ctx.stroke();
+      // a jump to the next segment (rather than a shared endpoint)
+      // means this was a wrap - mark both ends of the jump
+      if (i < n - 1) {
+        const nextA = segments[i + 1][0];
+        if (Math.abs(b[0] - nextA[0]) > 1e-6 || Math.abs(b[1] - nextA[1]) > 1e-6) {
+          drawWrapMark(b, color);
+          drawWrapMark(nextA, color);
+        }
+      }
+    }
+    if (frac !== undefined && n < segments.length) {
+      const [a, b] = segments[n];
+      const [bx, by] = toCanvas(a[0] + (b[0] - a[0]) * frac, a[1] + (b[1] - a[1]) * frac);
+      const [ax, ay] = toCanvas(a[0], a[1]);
+      ctx.beginPath();
+      ctx.moveTo(ax, ay);
+      ctx.lineTo(bx, by);
+      ctx.stroke();
+    }
+    // origin marker
+    const [ox, oy] = toCanvas(segments[0][0][0], segments[0][0][1]);
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc(ox, oy, 3, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  function drawAim() {
+    if (!drag) return;
+    const [sx, sy] = drag.startPx;
+    if (!drag.currentPx) {
+      ctx.fillStyle = "#16233f";
+      ctx.beginPath();
+      ctx.arc(sx, sy, 4, 0, Math.PI * 2);
+      ctx.fill();
+      return;
+    }
+    const [cx, cy] = drag.currentPx;
+    ctx.save();
+    ctx.strokeStyle = "#c1443d";
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([5, 4]);
+    ctx.beginPath();
+    ctx.moveTo(sx, sy);
+    ctx.lineTo(cx, cy);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    const angle = Math.atan2(cy - sy, cx - sx);
+    const headLen = 9;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx - headLen * Math.cos(angle - Math.PI / 6), cy - headLen * Math.sin(angle - Math.PI / 6));
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx - headLen * Math.cos(angle + Math.PI / 6), cy - headLen * Math.sin(angle + Math.PI / 6));
+    ctx.stroke();
+    ctx.fillStyle = "#16233f";
+    ctx.beginPath();
+    ctx.arc(sx, sy, 4, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+  function renderAll(animating) {
+    // Guarded so any unforeseen geometry edge case degrades to a skipped
+    // frame instead of an uncaught error that would break the whole page.
+    try {
+      drawBase();
+      for (const p of firedPaths) drawSegments(p.segments, p.color);
+      if (animating) drawSegments(animating.segments, animating.color, animating.upTo, animating.frac);
+      drawAim();
+    } catch (err) {
+      console.warn("ray demo: render skipped -", err);
+    }
+  }
+  function animateSegments(segments, color) {
+    const n = segments.length;
+    if (n === 0) return;
+    const perSeg = 190;
+    const totalDur = perSeg * n;
+    const start = performance.now();
+    function frame(now) {
+      const t = Math.min((now - start) / totalDur, 1);
+      const exact = t * n;
+      const upTo = Math.min(Math.floor(exact), n);
+      const frac = exact - upTo;
+      renderAll({ segments, color, upTo, frac });
+      if (t < 1) {
+        requestAnimationFrame(frame);
+      } else {
+        firedPaths.push({ segments, color });
+        if (firedPaths.length > 6) firedPaths.shift();
+        renderAll(null);
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+  // ---------- events ----------
+  function resize() {
+    const rect = canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    size = rect.width;
+    canvas.width = size * dpr;
+    canvas.height = size * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    renderAll(null);
+  }
+  function fireFrom(originPx, releasePx) {
+    // Guarded for the same reason as renderAll: a rare geometry edge case
+    // (e.g. a grazing hit right on a mirror endpoint) should drop that one
+    // ray, not throw an uncaught error that breaks the demo.
+    try {
+      if (!originPx || !releasePx) return;
+      let [ox, oy] = toLogical(originPx[0], originPx[1]);
+      ox = clamp(ox, 0.15, 9.85);
+      oy = clamp(oy, 0.15, 9.85);
+      const dx = releasePx[0] - originPx[0];
+      const dy = releasePx[1] - originPx[1];
+      let theta;
+      if (Math.hypot(dx, dy) < 10) {
+        theta = Math.random() * Math.PI * 2; // a plain tap/click - pick a direction
+      } else {
+        const [ex, ey] = toLogical(releasePx[0], releasePx[1]);
+        theta = Math.atan2(ey - oy, ex - ox);
+      }
+      const segments = traceRay([ox, oy], theta, MAX_SEGMENTS);
+      const color = COLORS[firedPaths.length % COLORS.length];
+      animateSegments(segments, color);
+    } catch (err) {
+      console.warn("ray demo: fire skipped -", err);
+    }
+  }
+  canvas.addEventListener("pointerdown", (e) => {
+    const [px, py] = pointerPos(e);
+    drag = { startPx: [px, py] };
+    canvas.setPointerCapture(e.pointerId);
+    renderAll(null);
+    e.preventDefault();
+  });
+  canvas.addEventListener("pointermove", (e) => {
+    if (!drag) return;
+    drag.currentPx = pointerPos(e);
+    renderAll(null);
+    e.preventDefault();
+  });
+  canvas.addEventListener("pointerup", (e) => {
+    if (!drag) return;
+    const releasePx = pointerPos(e);
+    const startPx = drag.startPx;
+    drag = null;
+    fireFrom(startPx, releasePx);
+  });
+  canvas.addEventListener("pointercancel", () => {
+    drag = null;
+    renderAll(null);
+  });
+  const resetBtn = document.getElementById("rayReset");
+  if (resetBtn) {
+    resetBtn.addEventListener("click", () => {
+      firedPaths = [];
+      renderAll(null);
+    });
+  }
+  window.addEventListener("resize", resize);
+  resize();
+})();
+/* ==========================================================
+   Scroll reveal for project / education cards
+   ========================================================== */
+(function () {
+  const targets = document.querySelectorAll(".card, .edu-block");
+  targets.forEach((el) => el.classList.add("reveal"));
+  if (!("IntersectionObserver" in window)) {
+    targets.forEach((el) => el.classList.add("is-visible"));
+    return;
+  }
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          io.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12 }
+  );
+  targets.forEach((el) => io.observe(el));
+})();
+</script>
+</body>
+</html>
